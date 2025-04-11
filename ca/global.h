@@ -1,0 +1,178 @@
+#ifndef __CA_GLOBAL_H__
+#define __CA_GLOBAL_H__
+#include <unordered_set>
+
+#include "common/global.h"
+#include "proto/ca_protomsg.pb.h"
+#include "utils/timer.hpp"
+
+
+
+namespace global{
+
+    namespace ca{
+
+        // data
+        #ifdef PRIMARYCHAIN
+        static const std::string kInitAccountAddr = "ffFd42e045737b11570B7981c2648ea532a10B23";
+        static const std::string kGenesisBlockRaw = "1080c0cee8faee80031a40333233323733326235646138326265666535363861613465356336336238666237623561336432336266616534396133653233346162626537653733613439372240303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303240613333663466393163623135386664343838383864303639633635393866666434323437643931633330396337346666656664336135656330333737356635353a97071080c0cee8faee80032228666646643432653034353733376231313537304237393831633236343865613533326131304232332a4061333366346639316362313538666434383838386430363963363539386666643432343764393163333039633734666665666433613565633033373735663535320747656e6573697340ffffffff0f7287030a286666466434326530343537333762313135373042373938316332363438656135333261313042323312b6010a420a403030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303012700a40155a11150fb6eddbd1e0de8e17e6a20f5de34194d8b916ed676c5c7ee0ff73358e0f64ee5814cec0dd98e234fbf277648aa8f7dc8a64b02d1cfd7a6072fccf0f122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d351a2a12286666466434326530343537333762313135373042373938316332363438656135333261313042323322700a407bd52d5a1abb49b57341cfdc5bc6a2f0192b435e9a173a7914177c6a743e3f75eadda1bbdecf026ac903725db56d7f5a557872b81a912ac939848ef4614b920d122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d352a04566f74657286030a286666466434326530343537333762313135373042373938316332363438656135333261313042323312b6010a420a403030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303012700a40155a11150fb6eddbd1e0de8e17e6a20f5de34194d8b916ed676c5c7ee0ff73358e0f64ee5814cec0dd98e234fbf277648aa8f7dc8a64b02d1cfd7a6072fccf0f122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d351a2a12286666466434326530343537333762313135373042373938316332363438656135333261313042323322700a407bd52d5a1abb49b57341cfdc5bc6a2f0192b435e9a173a7914177c6a743e3f75eadda1bbdecf026ac903725db56d7f5a557872b81a912ac939848ef4614b920d122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d352a034d4d4342287b224e616d65223a225472616e73666f726d657273222c2254797065223a2247656e65736973227d";
+        static const uint64_t kGenesisTime = 1692662400000000;
+        static const std::string kConfigJson = "{\"http_callback\":{\"ip\":\"\",\"path\":\"\",\"port\":0},\"rpc\":true,\"http_port\":13134,\"info\":{\"logo\":\"\",\"name\":\"\"},\"ip\":\"\",\"log\":{\"console\":false,\"level\":\"OFF\",\"path\":\"./logs\"},\"server\":[\"127.0.0.1\"],\"server_port\":13133,\"version\":\"1.0.0\"}";
+        #elif TESTCHAIN
+        static const std::string kInitAccountAddr = "ffFd42e045737b11570B7981c2648ea532a10B23";
+        static const std::string kGenesisBlockRaw = "1080c0cee8faee80031a40333233323733326235646138326265666535363861613465356336336238666237623561336432336266616534396133653233346162626537653733613439372240303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303240613333663466393163623135386664343838383864303639633635393866666434323437643931633330396337346666656664336135656330333737356635353a97071080c0cee8faee80032228666646643432653034353733376231313537304237393831633236343865613533326131304232332a4061333366346639316362313538666434383838386430363963363539386666643432343764393163333039633734666665666433613565633033373735663535320747656e6573697340ffffffff0f7287030a286666466434326530343537333762313135373042373938316332363438656135333261313042323312b6010a420a403030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303012700a40155a11150fb6eddbd1e0de8e17e6a20f5de34194d8b916ed676c5c7ee0ff73358e0f64ee5814cec0dd98e234fbf277648aa8f7dc8a64b02d1cfd7a6072fccf0f122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d351a2a12286666466434326530343537333762313135373042373938316332363438656135333261313042323322700a407bd52d5a1abb49b57341cfdc5bc6a2f0192b435e9a173a7914177c6a743e3f75eadda1bbdecf026ac903725db56d7f5a557872b81a912ac939848ef4614b920d122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d352a04566f74657286030a286666466434326530343537333762313135373042373938316332363438656135333261313042323312b6010a420a403030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303012700a40155a11150fb6eddbd1e0de8e17e6a20f5de34194d8b916ed676c5c7ee0ff73358e0f64ee5814cec0dd98e234fbf277648aa8f7dc8a64b02d1cfd7a6072fccf0f122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d351a2a12286666466434326530343537333762313135373042373938316332363438656135333261313042323322700a407bd52d5a1abb49b57341cfdc5bc6a2f0192b435e9a173a7914177c6a743e3f75eadda1bbdecf026ac903725db56d7f5a557872b81a912ac939848ef4614b920d122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d352a034d4d4342287b224e616d65223a225472616e73666f726d657273222c2254797065223a2247656e65736973227d";
+        static const uint64_t kGenesisTime = 1692662400000000;
+        static const std::string kConfigJson = "{\"http_callback\":{\"ip\":\"\",\"path\":\"\",\"port\":0},\"rpc\":true,\"http_port\":13134,\"info\":{\"logo\":\"\",\"name\":\"\"},\"ip\":\"\",\"log\":{\"console\":false,\"level\":\"OFF\",\"path\":\"./logs\"},\"server\":[\"127.0.0.1\"],\"server_port\":13133,\"version\":\"1.0.0\"}";
+        #else // DEVCHAIN
+        static const std::string kInitAccountAddr = "ffFd42e045737b11570B7981c2648ea532a10B23";
+        static const std::string kGenesisBlockRaw = "1080c0cee8faee80031a40333233323733326235646138326265666535363861613465356336336238666237623561336432336266616534396133653233346162626537653733613439372240303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303240613333663466393163623135386664343838383864303639633635393866666434323437643931633330396337346666656664336135656330333737356635353a97071080c0cee8faee80032228666646643432653034353733376231313537304237393831633236343865613533326131304232332a4061333366346639316362313538666434383838386430363963363539386666643432343764393163333039633734666665666433613565633033373735663535320747656e6573697340ffffffff0f7287030a286666466434326530343537333762313135373042373938316332363438656135333261313042323312b6010a420a403030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303012700a40155a11150fb6eddbd1e0de8e17e6a20f5de34194d8b916ed676c5c7ee0ff73358e0f64ee5814cec0dd98e234fbf277648aa8f7dc8a64b02d1cfd7a6072fccf0f122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d351a2a12286666466434326530343537333762313135373042373938316332363438656135333261313042323322700a407bd52d5a1abb49b57341cfdc5bc6a2f0192b435e9a173a7914177c6a743e3f75eadda1bbdecf026ac903725db56d7f5a557872b81a912ac939848ef4614b920d122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d352a04566f74657286030a286666466434326530343537333762313135373042373938316332363438656135333261313042323312b6010a420a403030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303012700a40155a11150fb6eddbd1e0de8e17e6a20f5de34194d8b916ed676c5c7ee0ff73358e0f64ee5814cec0dd98e234fbf277648aa8f7dc8a64b02d1cfd7a6072fccf0f122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d351a2a12286666466434326530343537333762313135373042373938316332363438656135333261313042323322700a407bd52d5a1abb49b57341cfdc5bc6a2f0192b435e9a173a7914177c6a743e3f75eadda1bbdecf026ac903725db56d7f5a557872b81a912ac939848ef4614b920d122c302a300506032b65700321009d5c3223b5f09389553708b88fba200a81f2cb8d22b1098cba66cce7c24a4d352a034d4d4342287b224e616d65223a225472616e73666f726d657273222c2254797065223a2247656e65736973227d";
+        static const uint64_t kGenesisTime = 1692662400000000;
+        static const std::string kConfigJson = "{\"http_callback\":{\"ip\":\"\",\"path\":\"\",\"port\":0},\"rpc\":true,\"http_port\":13134,\"info\":{\"logo\":\"\",\"name\":\"\"},\"ip\":\"\",\"log\":{\"console\":false,\"level\":\"OFF\",\"path\":\"./logs\"},\"server\":[\"127.0.0.1\"],\"server_port\":13133,\"version\":\"1.0.0\"}";
+        #endif
+
+        // consensus
+        static const int kConsensus = 7;
+        static const int KRandomNodeGroup = 1; 
+        const int KSend_node_threshold = 13; //The threshold at which a block stream is sent
+        const uint32_t KMinSyncQualNodes = 25;
+
+
+        const uint32_t KMIN_QUALIFIED_NODES = 25;
+        const int kNeed_node_threshold = 25; //Minimum number of nodes required for vrf
+        const int KDouble_broadcast_threshold = 25; //Threshold for the secondary broadcast  XXX
+        const int KSign_node_threshold = 20; //The vrf filters the threshold of the transaction signature XXX 
+
+        const int TxTimeoutMin = 30;
+                                       
+        // timer
+        static CTimer kBlockPoolTimer("blockpool");
+        static CTimer kSeekBlockTimer("SeekBlock");
+        static CTimer kDataBaseTimer("database");
+        // mutex
+        static std::mutex kBonusMutex;
+        static std::mutex kInvestMutex;
+        static std::mutex kBurnMutex;
+
+        // ca
+        const uint64_t kDecimalNum = 100000000;
+        const double   kFixDoubleMinPrecision = 0.000000005;
+        const uint64_t kM2 = 70000000;
+        const uint32_t KLockAmount = 1;//1000;
+
+        const uint64_t kMinStakeAmt = (uint64_t)((double)100000 * kDecimalNum);
+        const uint64_t kMinInvestAmt = (uint64_t)((double)3500 * kDecimalNum);
+        const std::string kGenesisSign = "Genesis";
+        const std::string kTxSign = "Tx";
+        const std::string kVirtualStakeAddr = "VirtualStake";
+        const std::string kVirtualInvestAddr = "VirtualInvest";
+        const std::string kVirtualBurnGasAddr = "VirtualBurnGas";
+        const std::string kStakeTypeNet = "Net";
+        const std::string kInvestTypeNormal = "Normal";
+        const uint64_t kMinUnstakeHeight = 500;
+        const std::string kVirtualDeployContractAddr = "VirtualDeployContractBurnGas";
+        const std::string kVirtualCallContractAddr = "VirtualCallContractBurnGas";
+        const std::string kVirtualCallOutflowAddr = "VirtualCallOutflowBurnGas";
+        //==============================
+        const std::string kLockTypeNet = "LockNet";
+        const std::string kLockVirtualAddr = "LockVirtualStake";
+        //==============================
+		
+        const uint64_t KtxTimeout = 10 * 1000000ull;
+        const uint64_t KPackNodeThreshold = 5;
+
+        const double KCommissionRate = 0.2;
+        const double KMaxCommissionRate = 0.35;
+        const double KMinCommissionRate = 0.01;
+
+        const  std::string assetType_Vote = "Vote";
+        const  std::string assetType_MMC = "MMC";//hash
+
+        enum class StakeType
+        {
+            kStakeType_Unknown = 0,
+            kStakeType_Node = 1
+        };
+        
+        // Transacatione Type
+        enum class TxType
+        {
+            kTxTypeGenesis = -1,
+            kTxTypeUnknown, // unknown 
+            kTxTypeTx, //normal transaction 1
+            kTxTypeStake, //stake 2 
+            kTxTypeUnstake, //unstake 3
+            kTxTypeInvest, //invest 4 
+            kTxTypeDisinvest, //disinvest 5
+            kTxTypeDeclaration, //declaration 6
+            kTxTypeDeployContract, 
+            kTxTypeCallContract,  
+            kTxTypeLock,            
+            kTxTypeUnLock,          
+            KTXTypeProposal,        
+            KTXTyRevokeProposal,    
+            KTXTyVote,              
+            kTXTypeTreasury = 98,  
+            kTxTypeBonus = 99
+        };
+
+        // Sync
+        enum class SaveType
+        {
+            SyncNormal,
+            SyncFromZero,
+            Broadcast,
+            Unknow
+        };
+
+        enum class BlockObtainMean
+        {
+            Normal,
+            ByPreHash,
+            ByUtxo
+        };
+        const uint64_t sum_hash_range = 100;
+        const uint64_t thousand_sum_hash_range = 1000;
+
+        namespace DoubleSpend {
+            const int SingleBlock = -66;
+            const int DoubleBlock = -99;
+        };
+
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        const uint32_t KVoteCycle = 10 * 60 * 1000000; 
+        const uint32_t KVrfVoteBeginTime = 10 * 1000000; 
+        const double KLowestExchangeRate = 1e-8;
+        
+        enum class VoteType
+        {
+            Against = 0, 
+            Approve = 1,  
+            Count 
+        };
+
+
+        const uint8_t KProposalInfoVersion = 0;
+        const uint8_t KRevokeProposalInfoVersion = 0;
+
+        const std::string KGenesisAddr = "ffFd42e045737b11570B7981c2648ea532a10B23";
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        // contract
+        enum VmType {
+            EVM,
+            WASM
+        };
+        //test
+        static std::atomic<uint64_t> TxNumber{0};
+
+        const uint32_t kInitTransactionVersion = 0;
+        const uint32_t kInitBlockVersion = 0;
+        const uint32_t kCurrentTransactionVersion = 0;
+        const uint32_t kCurrentBlockVersion = 0;
+
+        const uint32_t KChainHighThreshold = 10;
+    }
+}
+
+
+#endif

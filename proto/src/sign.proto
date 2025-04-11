@@ -1,0 +1,9 @@
+
+syntax = "proto3";
+
+
+//sign
+message CSign{
+    bytes sign = 1; //sign
+    bytes pub  = 2; //public key
+}
