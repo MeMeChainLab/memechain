@@ -3,7 +3,7 @@
 
 SHDIR=$(dirname `readlink -f $0`)
 
-name="Memechain_"
+name="mmc_"
 gitversion=$(git rev-parse --short HEAD)
 version=$(sed -n "/static const std::string kLinuxCompatible = /p" ${SHDIR}/common/global.h | awk -F '[\"]' '{print $2}')
 
@@ -30,11 +30,11 @@ else
     echo  "${finalversion}"
 fi;
 
-if [ -f $2/bin/Memechain ]
+if [ -f $2/bin/mmc ]
 then
-    mv $2/bin/Memechain $2/bin/${finalversion}
+    mv $2/bin/mmc $2/bin/${finalversion}
 else
-    echo "Memechain not exist"
+    echo "mmc not exist"
 fi;
  
 #sed -i "s/build_commit_hash.*;/build_commit_hash = \"${gitversion}\";/g" ./ca/global.cpp
