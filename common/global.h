@@ -25,9 +25,9 @@ namespace global{
         @brief Version 
         @brief Network version number depends on the first version number
     */
-    static const std::string kNetVersion = "1.0";
-    static const std::string kLinuxCompatible = "1.0.0";
-    static const std::string kWindowsCompatible = "1.0.0";
+    static const std::string kNetVersion = "0.0";
+    static const std::string kLinuxCompatible = "0.0.1";
+    static const std::string kWindowsCompatible = "0.0.1";
     static const std::string kIOSCompatible = "4.0.4";
     static const std::string kAndroidCompatible = "3.1.0";
 
